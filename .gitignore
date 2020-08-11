@@ -1,3 +1,7 @@
+.env.dev
+.env.prod
+.env.prod.db
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/flask,python,intellij+all,database,data,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=flask,python,intellij+all,database,data,macos
