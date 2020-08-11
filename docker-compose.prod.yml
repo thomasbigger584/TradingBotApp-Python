@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  nginx:
+    container_name: prod_nginx
+    build: ./services/nginx
+    volumes:
+      - ~/volumes/tradingapp/prod/web/static:/home/app/web/project/static
+      - ~/volumes/tradingapp/prod/web/media:/home/app/web/project/media
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+  web:
+    container_name: prod_web
+    build:
+      context: ./services/web
+      dockerfile: Dockerfile.prod
+    command: gunicorn --bind 0.0.0.0:5000 manage:app
+    volumes:
+      - ~/volumes/tradingapp/prod/web/static:/home/app/web/project/static
+      - ~/volumes/tradingapp/prod/web/media:/home/app/web/project/media
+    expose:
+      - 5000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+  db:
+    container_name: prod_db
+    image: postgres:12-alpine
+    volumes:
+      - ~/volumes/tradingapp/prod/postgresql:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.prod.db
+
