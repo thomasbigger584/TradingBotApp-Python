@@ -17,5 +17,8 @@ echo "Creating the database tables..."
 python manage.py create_db || exit 1
 echo "Tables created"
 
+echo "Seeding database..."
+python manage.py seed_db || exit 1
+echo "Database seeded"
 
 exec "$@"

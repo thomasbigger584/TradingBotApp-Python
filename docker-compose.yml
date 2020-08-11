@@ -12,6 +12,8 @@ services:
       - 5000:5000
     env_file:
       - ./.env.dev
+    networks:
+      - dev_db_net
     depends_on:
       - db
   db:
@@ -23,4 +25,8 @@ services:
       - POSTGRES_USER=hello_flask
       - POSTGRES_PASSWORD=hello_flask
       - POSTGRES_DB=hello_flask_dev
+    networks:
+      - dev_db_net
 
+networks:
+  dev_db_net:

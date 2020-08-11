@@ -7,5 +7,7 @@ https://apscheduler.readthedocs.io/en/stable/userguide.html
 
 
 Create prod db:
-
 docker-compose -f docker-compose.prod.yml exec api python manage.py create_db
+
+View db:
+docker-compose exec db psql --username=hello_flask --dbname=hello_flask_dev
