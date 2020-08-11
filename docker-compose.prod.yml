@@ -5,25 +5,31 @@ services:
     container_name: prod_nginx
     build: ./services/nginx
     volumes:
-      - ~/volumes/tradingapp/prod/web/static:/home/app/web/project/static
-      - ~/volumes/tradingapp/prod/web/media:/home/app/web/project/media
+      - ~/volumes/tradingapp/prod/api/static:/home/app/api/project/static
+      - ~/volumes/tradingapp/prod/api/media:/home/app/api/project/media
     ports:
       - 1337:80
+    networks:
+      - prod_api_net
     depends_on:
-      - web
-  web:
-    container_name: prod_web
+      - api
+  api:
+    container_name: prod_api
+    image: prod_api:latest
     build:
-      context: ./services/web
+      context: ./services/api
       dockerfile: Dockerfile.prod
     command: gunicorn --bind 0.0.0.0:5000 manage:app
     volumes:
-      - ~/volumes/tradingapp/prod/web/static:/home/app/web/project/static
-      - ~/volumes/tradingapp/prod/web/media:/home/app/web/project/media
+      - ~/volumes/tradingapp/prod/api/static:/home/app/api/project/static
+      - ~/volumes/tradingapp/prod/api/media:/home/app/api/project/media
     expose:
       - 5000
     env_file:
       - ./.env.prod
+    networks:
+      - prod_api_net
+      - prod_db_net
     depends_on:
       - db
   db:
@@ -33,4 +39,10 @@ services:
       - ~/volumes/tradingapp/prod/postgresql:/var/lib/postgresql/data/
     env_file:
       - ./.env.prod.db
+    networks:
+      - prod_db_net
+
+networks:
+  prod_api_net:
+  prod_db_net:
 

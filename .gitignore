@@ -2,6 +2,9 @@
 .env.prod
 .env.prod.db
 
+services/api/project/media/*
+!services/api/project/media/.gitkeep
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/flask,python,intellij+all,database,data,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=flask,python,intellij+all,database,data,macos

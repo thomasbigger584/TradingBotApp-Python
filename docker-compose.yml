@@ -1,12 +1,13 @@
 version: '3.7'
 
 services:
-  web:
-    container_name: dev_web
-    build: ./services/web
+  api:
+    container_name: dev_api
+    image: dev_api:latest
+    build: ./services/api
     command: python manage.py run -h 0.0.0.0
     volumes:
-      - ./services/web/:/usr/src/app/
+      - ./services/api/:/usr/src/app/
     ports:
       - 5000:5000
     env_file:
