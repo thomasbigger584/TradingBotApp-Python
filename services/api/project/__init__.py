@@ -29,7 +29,7 @@ def create_app(config=Config):
 
     def get_locale():
         """Returns the locale to be used for the incoming request."""
-        return request.accept_languages.best_match(config.SUPPORTED_LOCALES)
+        return request.accept_languages.best_match("en")
 
     if babel.locale_selector_func is None:
         babel.locale_selector_func = get_locale

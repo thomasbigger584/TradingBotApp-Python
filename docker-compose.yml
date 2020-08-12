@@ -12,9 +12,6 @@ services:
       - 5000:5000
     env_file:
       - ./.env.dev
-    networks:
-      - dev_api_net
-      - dev_db_net
     depends_on:
       - db
   db:
@@ -22,28 +19,20 @@ services:
     image: postgres:12-alpine
     volumes:
       - ~/volumes/tradingapp/dev/postgresql:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=hello_flask
-      - POSTGRES_PASSWORD=hello_flask
-      - POSTGRES_DB=hello_flask_dev
-    networks:
-      - dev_db_net
   mail:
     container_name: dev_mail
     image: "mailhog/mailhog"
     ports:
       - "8025:8025"
+    depends_on:
+      - db
   memcached:
     container_name: dev_cache
     image: "memcached:alpine"
-    networks:
-      - dev_api_net
+    depends_on:
+      - db
   redis:
     container_name: dev_redis
     image: "redis:alpine"
-    networks:
-      - dev_api_net
-
-networks:
-  dev_api_net:
-  dev_db_net:
+    depends_on:
+      - db

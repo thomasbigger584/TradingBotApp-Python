@@ -1,5 +1,5 @@
-from faker import Faker
 import click
+from faker import Faker
 
 from project.database import db
 from project.user.models import User
@@ -21,9 +21,9 @@ def populate_db(num_users):
         )
     users.append(
         User(
-            username='cburmeister',
-            email='cburmeister@discogs.com',
-            password='test123',
+            username='admin',
+            email='admin@admin.com',
+            password='admin',
             remote_addr=fake.ipv4(),
             active=True,
             is_admin=True
@@ -35,17 +35,19 @@ def populate_db(num_users):
 
 
 def create_db():
+    print("Creating database")
     """Creates the database."""
     db.create_all()
 
 
 def drop_db():
+    print("Dropping database")
     """Drops the database."""
-    if click.confirm('Are you sure?', abort=True):
-        db.drop_all()
+    db.drop_all()
 
 
 def recreate_db():
+    print("Recreating database")
     """Same as running drop_db() and create_db()."""
     drop_db()
     create_db()

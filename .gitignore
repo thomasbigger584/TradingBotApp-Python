@@ -468,6 +468,7 @@ dist
 **/*.back.*
 
 node_modules
+gen
 
 *.sublime*
 

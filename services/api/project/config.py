@@ -4,6 +4,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
+    SITE_NAME = os.getenv('APP_NAME', 'Flask Bones')
+
+    SECRET_KEY = os.getenv('SECRET_KEY', 'secrets')
+    SERVER_NAME = os.getenv('SERVER_NAME', 'localhost:5000')
+
     MAIL_SERVER = os.getenv('MAIL_SERVER')
     MAIL_PORT = os.getenv('MAIL_PORT')
 
@@ -31,5 +36,3 @@ class Config(object):
 
     STATIC_FOLDER = f"{os.getenv('APP_FOLDER')}/project/static"
     MEDIA_FOLDER = f"{os.getenv('APP_FOLDER')}/project/media"
-
-    SUPPORTED_LOCALES = ['en']
