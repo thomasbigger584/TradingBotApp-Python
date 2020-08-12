@@ -5,7 +5,7 @@ services:
     container_name: dev_api
     image: dev_api:latest
     build: ./services/api
-    command: python manage.py run -h 0.0.0.0
+    command: python -m flask run --host 0.0.0.0 --port 5000
     volumes:
       - ./services/api/:/usr/src/app/
     ports:
@@ -13,6 +13,7 @@ services:
     env_file:
       - ./.env.dev
     networks:
+      - dev_api_net
       - dev_db_net
     depends_on:
       - db
@@ -27,6 +28,22 @@ services:
       - POSTGRES_DB=hello_flask_dev
     networks:
       - dev_db_net
+  mail:
+    container_name: dev_mail
+    image: "mailhog/mailhog"
+    ports:
+      - "8025:8025"
+  memcached:
+    container_name: dev_cache
+    image: "memcached:alpine"
+    networks:
+      - dev_api_net
+  redis:
+    container_name: dev_redis
+    image: "redis:alpine"
+    networks:
+      - dev_api_net
 
 networks:
+  dev_api_net:
   dev_db_net:

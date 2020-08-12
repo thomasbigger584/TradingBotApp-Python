@@ -38,7 +38,7 @@ services:
     volumes:
       - ~/volumes/tradingapp/prod/postgresql:/var/lib/postgresql/data/
     env_file:
-      - ./.env.prod.db
+      - ./.env.prod
     networks:
       - prod_db_net
 
